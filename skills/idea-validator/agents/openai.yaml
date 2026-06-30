@@ -1,0 +1,4 @@
+interface:
+  display_name: "Idea Validator"
+  short_description: "Clarify and validate ideas"
+  default_prompt: "Validate this idea through clarification, research, critique, and an implementation plan."

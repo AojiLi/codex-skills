@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering Decision Review"
+  short_description: "Review decisions with repo evidence"
+  default_prompt: "Use $engineering-decision-review to review this engineering decision with repo coverage before recommending a plan."
