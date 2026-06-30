@@ -15,6 +15,7 @@ Default to the user's language. If the user writes in Chinese, ask questions and
 
 - Do not start with a long intake form. Start with one question unless the user already provided the answer.
 - Do not launch the six-lens analysis until the user explicitly confirms the background, purpose, core question, options, jurisdiction, constraints, and weight framework.
+- Do not spawn subagents automatically. The six default lenses are designed to run as six independent lens subagents only when the user explicitly authorizes subagents or parallel agent work for this decision and the environment supports it.
 - Always ask the user to confirm the applicable region or jurisdiction before the legal/regulatory lens runs. Do not silently infer it from context.
 - Default to considering "maintain the status quo / do nothing / delay the decision" as a candidate option unless it is clearly impossible or the user confirms excluding it.
 - Give a clear recommendation unless decisive information is missing or the decision turns entirely on a personal value judgment the user has not resolved.
@@ -84,7 +85,7 @@ If sources are weak, conflicting, unavailable, or stale, lower confidence and sa
 
 ### 6. Run Six-Lens Analysis
 
-Use true subagents when available and run them in parallel where practical. If the environment does not support subagents, perform the same lenses sequentially as a single-agent simulation and disclose that downgrade.
+The six default lenses are intended to map to six independent lens agents when subagents are available and authorized:
 
 Default lenses:
 
@@ -94,6 +95,12 @@ Default lenses:
 - risk management: downside, tail risk, reversibility, mitigations, monitoring, stop conditions
 - legal/regulatory: confirmed jurisdiction, compliance, contracts, employment, tax, data, platform rules, regulatory exposure; provide risk identification and general information, not formal legal advice
 - technical feasibility: implementation path, dependencies, skills, reliability, scalability, integration, operational complexity
+
+Before spawning subagents, tell the user that the full multi-agent mode will open six subagents, one per lens, and ask for explicit permission. Do not treat a request for depth, rigor, or thoroughness as permission to spawn subagents.
+
+When the user approves and the environment supports subagents, spawn exactly one subagent for each confirmed lens and run them in parallel where practical. Pass each subagent the confirmed decision frame, candidate options, jurisdiction, constraints, and weight framework. If the user replaces a default lens with a more relevant one, still use one subagent per confirmed lens.
+
+If the user does not approve subagents, the environment does not expose subagent tools, or subagent use is otherwise unsafe, run the same six lenses sequentially in the main agent and disclose that this is a single-agent simulation rather than true multi-agent analysis.
 
 Each lens must return:
 
@@ -109,7 +116,9 @@ If a lens has low relevance, say so directly instead of forcing analysis. The ma
 
 ### 7. Run Critique-Revision Loops
 
-For each lens, run a same-lens critic after the initial lens conclusion. The critic looks for:
+For each lens, run a same-lens critique after the initial lens conclusion. Do not spawn extra critic subagents by default. Ask each lens subagent to perform its own critique-revision loop, or simulate the loop locally when running sequentially.
+
+The critique looks for:
 
 - factual gaps or weak sources
 - logical jumps
