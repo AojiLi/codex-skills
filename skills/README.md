@@ -16,6 +16,10 @@ Each public skill should include:
 
 - **[decision-advisor](./decision-advisor/SKILL.md)** - Analyze decisions through a confirmed decision frame, candidate options, jurisdiction, constraints, weight framework, six-lens research, critique loops, recommendation, action plan, and review signals.
 
+## Writing
+
+- **[voice-preserving-editor](./voice-preserving-editor/SKILL.md)** - Edit, polish, correct, complete, or insert prose while preserving the author's meaning, tone, warmth, rhythm, and personal style.
+
 ## Engineering
 
 - **[engineering-decision-review](./engineering-decision-review/SKILL.md)** - Prevent premature engineering advice by requiring relevant repository coverage, subagent fan-out when useful, explicit tradeoffs, and small verifiable implementation slices.
