@@ -29,7 +29,7 @@ Stop this phase when you can summarize the idea in one paragraph and the user ag
 
 After the user confirms the stable brief, ask one focused mode question before research:
 
-> Do you want full multi-agent research fan-out for this idea? If yes, I will open five independent research-lane subagents: existing work, technical feasibility, user/market value, risks and counterexamples, and implementation path. If no, I will run the same lanes sequentially in the main agent.
+> Do you want full multi-agent research fan-out for this idea? If yes, I will open five independent research-lane subagents, which Codex may show as visible child/forked conversations: existing work, technical feasibility, user/market value, risks and counterexamples, and implementation path. If no, I will run the same lanes sequentially in the main agent.
 
 Do not proceed to research until the user chooses a mode. Do not treat a request for depth, rigor, or thoroughness as permission to spawn subagents.
 
@@ -38,6 +38,8 @@ If the user chooses full multi-agent mode but the environment does not support s
 ### 3. Research Fan-Out
 
 When the user chooses full multi-agent mode and the environment supports subagents, spawn exactly one subagent for each research lane. Give each subagent a narrow, independent lens and ask for sources, evidence, caveats, and unresolved questions.
+
+Treat those subagents as evidence collectors, not final decision makers. The main agent owns synthesis, skeptic loop, and final conclusion.
 
 Recommended lanes:
 
