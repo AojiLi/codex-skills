@@ -23,3 +23,18 @@ Output:
 - evidence needed
 - suggested modifications
 - verdict: pass, revise, or stop
+
+## Targeted Re-Research
+
+Request targeted re-research only when a missing or weak fact could materially change the final verdict, MVP, implementation path, or risk ranking.
+
+When re-research is needed, specify:
+
+- affected lane: existing work, technical feasibility, value, risks/counterexamples, or implementation path
+- exact question to answer
+- why the answer could change the verdict
+- what evidence would be sufficient
+
+Do not request all five lanes again by default. Prefer one affected lane. Request multiple lanes only when the same unresolved objection depends on evidence from multiple lanes.
+
+Stop the skeptic loop early when two consecutive rounds produce no material change to the idea, MVP, implementation path, risk ranking, or final verdict.

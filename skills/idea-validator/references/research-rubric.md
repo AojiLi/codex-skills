@@ -40,4 +40,29 @@ Use independent lanes. Prefer multiple subagents only when they are available an
 - validation experiment
 - rough effort
 
-Each lane should return sources, evidence, caveats, and unresolved questions.
+Each lane must return this structure:
+
+```text
+Lane:
+  lane name
+
+Key Claims:
+  concise claims from this lane
+
+Evidence:
+  source-backed evidence with links or source names
+
+Caveats:
+  source limits, stale data, weak evidence, or uncertainty
+
+Confidence:
+  Low / Medium / High, with a short reason
+
+Unresolved Questions:
+  questions that could materially change the conclusion
+
+Verdict Impact:
+  how this lane should affect the final pass / revise / stop judgment
+```
+
+Do not include raw browsing notes, long excerpts, or irrelevant discoveries. Return compact evidence that the main agent can synthesize.

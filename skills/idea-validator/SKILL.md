@@ -53,7 +53,7 @@ If the user chooses single-agent mode, does not approve subagents, subagents are
 
 Do not synthesize or start the skeptic loop until all five research lanes have returned or been completed sequentially.
 
-Use `references/research-rubric.md`.
+Use `references/research-rubric.md`. Require each lane to return the structured lane output defined there.
 
 ### 4. Synthesize
 
@@ -75,6 +75,8 @@ Keep source-backed evidence separate from your own reasoning.
 Immediately and automatically run a skeptic pass after synthesis using `references/skeptic-rubric.md`. Do not ask the user whether to start the skeptic loop; it is a required part of this skill.
 
 Run the skeptic loop in the main agent by default. Do not spawn an extra skeptic subagent unless the user has explicitly authorized an additional skeptic subagent, separate from the five research-lane subagents.
+
+If the skeptic identifies a specific evidence gap that could materially change the final verdict, run targeted re-research for only the affected lane. Do not rerun all five research lanes unless multiple verdict-changing gaps span all lanes.
 
 Loop up to 5 times:
 

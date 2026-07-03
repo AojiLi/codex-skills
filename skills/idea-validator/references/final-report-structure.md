@@ -12,6 +12,11 @@ Verdict:
 Why:
   evidence-backed reasons
 
+Evidence Ledger:
+  source-backed facts
+  main inferences
+  assumptions still not proven
+
 Modified Idea:
   improved version after research and critique
 
