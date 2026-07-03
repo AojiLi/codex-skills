@@ -1,6 +1,6 @@
 # Research Rubric
 
-Use independent lanes. Prefer multiple subagents when available.
+Use independent lanes. Prefer multiple subagents only when they are available and the user explicitly chose multi-agent research fan-out after confirming the stable brief.
 
 ## Lane 1: Existing Work
 
