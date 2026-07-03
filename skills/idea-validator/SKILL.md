@@ -1,6 +1,6 @@
 ---
 name: idea-validator
-description: Clarify vague ideas through dialogue, ask for explicit approval before multi-agent research fan-out, challenge assumptions with skeptic loops, and produce feasibility, value, and implementation conclusions. Use when the user has an idea, proposal, product concept, research direction, project plan, or architecture thought and wants to know whether it is reasonable, valuable, differentiated, or how to execute it.
+description: Clarify vague ideas through dialogue, ask for explicit approval before multi-agent research fan-out, automatically challenge assumptions with skeptic loops after synthesis, and produce feasibility, value, and implementation conclusions. Use when the user has an idea, proposal, product concept, research direction, project plan, or architecture thought and wants to know whether it is reasonable, valuable, differentiated, or how to execute it.
 ---
 
 # Idea Validator
@@ -49,9 +49,13 @@ Recommended lanes:
 
 If the user chooses single-agent mode, does not approve subagents, subagents are unavailable, or web access is unavailable, do the same lanes sequentially and disclose the limitation.
 
+Do not synthesize or start the skeptic loop until all five research lanes have returned or been completed sequentially.
+
 Use `references/research-rubric.md`.
 
 ### 4. Synthesize
+
+The main agent synthesizes the five research lanes. Do not delegate final synthesis to a subagent.
 
 Merge research results into:
 
@@ -66,7 +70,9 @@ Keep source-backed evidence separate from your own reasoning.
 
 ### 5. Skeptic Loop
 
-Run a skeptic pass using `references/skeptic-rubric.md`.
+Immediately and automatically run a skeptic pass after synthesis using `references/skeptic-rubric.md`. Do not ask the user whether to start the skeptic loop; it is a required part of this skill.
+
+Run the skeptic loop in the main agent by default. Do not spawn an extra skeptic subagent unless the user has explicitly authorized an additional skeptic subagent, separate from the five research-lane subagents.
 
 Loop up to 5 times:
 
@@ -77,6 +83,8 @@ Loop up to 5 times:
 Stop when there are no unresolved major objections, or after 5 rounds. Do not try to remove every minor concern.
 
 ### 6. Final Conclusion
+
+Only produce the final conclusion after clarification, research lanes, main-agent synthesis, and the skeptic loop are complete.
 
 Use `references/final-report-structure.md`.
 
@@ -99,6 +107,7 @@ Be willing to say the idea is not worth doing, or worth doing only after modific
 
 - Ask clarifying questions before research when the idea is underspecified.
 - Do not spawn subagents until the user confirms the stable brief and explicitly chooses multi-agent research fan-out.
+- Always run the skeptic loop automatically after synthesis, regardless of whether research used subagents or sequential single-agent lanes.
 - Use multiple independent research lanes for serious ideas.
 - Cite sources when web research is used.
 - Separate evidence from inference.

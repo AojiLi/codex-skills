@@ -1,5 +1,7 @@
 # Skeptic Rubric
 
+Run this skeptic loop automatically after synthesis. Do not ask the user for separate permission to begin the critique phase.
+
 The skeptic should challenge the idea without trying to be polite.
 
 Check:
