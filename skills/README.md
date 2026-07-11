@@ -11,6 +11,7 @@ Each public skill should include:
 ## Planning
 
 - **[idea-validator](./idea-validator/SKILL.md)** - Clarify a vague idea, run independent research lanes, challenge assumptions, and produce feasibility, value, differentiation, MVP, implementation, and validation conclusions.
+- **[grill-me](./grill-me/SKILL.md)** - Stress-test a plan or design through relentless one-question-at-a-time interrogation, recommended answers, and codebase exploration when the answer is discoverable locally.
 
 ## Decision Support
 
