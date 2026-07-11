@@ -21,6 +21,10 @@ Each public skill should include:
 
 - **[algorithmic-art](./algorithmic-art/SKILL.md)** - Create seeded p5.js generative art with an algorithmic philosophy, interactive viewer, parameter controls, and reusable templates. Imported from `anthropics/skills` under Apache 2.0; see its `LICENSE.txt`.
 
+## Research
+
+- **[research](./research/SKILL.md)** - Investigate a question against high-trust primary sources and save the cited findings as a Markdown file in the repo. Imported from `mattpocock/skills` under MIT; see its `LICENSE.txt`.
+
 ## Decision Support
 
 - **[decision-advisor](./decision-advisor/SKILL.md)** - Analyze decisions through a confirmed decision frame, candidate options, jurisdiction, constraints, weight framework, six-lens research, critique loops, recommendation, action plan, and review signals.

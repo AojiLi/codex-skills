@@ -4,7 +4,7 @@ Language: English | [中文](./README.zh-CN.md)
 
 ![Anime-style Codex skills engineering workspace](./assets/codex-skills-hero-engineering.png)
 
-Reusable Codex skills for thinking clearly, stress-testing plans, designing distinctive frontends, creating algorithmic art, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
+Reusable Codex skills for thinking clearly, stress-testing plans, designing distinctive frontends, creating algorithmic art, researching primary sources, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
 
 This repository is built around one practical problem: AI can produce more code, text, and plans than a human can comfortably audit. When the output surface gets too large, the user's own reasoning gets crowded out. Instead of thinking about the abstract shape of the project, the user is forced into low-level review of too much generated material.
 
@@ -59,6 +59,7 @@ npx skills@latest add AojiLi/codex-skills --skill idea-validator
 npx skills@latest add AojiLi/codex-skills --skill grill-me
 npx skills@latest add AojiLi/codex-skills --skill frontend-design
 npx skills@latest add AojiLi/codex-skills --skill algorithmic-art
+npx skills@latest add AojiLi/codex-skills --skill research
 npx skills@latest add AojiLi/codex-skills --skill decision-advisor
 npx skills@latest add AojiLi/codex-skills --skill voice-preserving-editor
 npx skills@latest add AojiLi/codex-skills --skill engineering-decision-review
@@ -101,6 +102,10 @@ AI-generated interfaces often converge on generic palettes, layout tropes, and c
 
 Code-based art can become shallow random decoration without a computational idea behind it. [`algorithmic-art`](./skills/algorithmic-art/SKILL.md) creates p5.js generative art from an algorithmic philosophy, seeded randomness, interactive parameters, and reusable viewer templates.
 
+### 9. Research Should Trace Claims To Primary Sources
+
+Agents can easily summarize summaries and lose the source of truth. [`research`](./skills/research/SKILL.md) delegates reading legwork to a background agent, checks high-trust primary sources such as official docs, source code, specs, and first-party APIs, then saves cited findings as a Markdown file in the repo.
+
 ## Skills
 
 See [skills/README.md](./skills/README.md) for the catalog.
@@ -117,6 +122,10 @@ See [skills/README.md](./skills/README.md) for the catalog.
 ### Creative
 
 - **[algorithmic-art](./skills/algorithmic-art/SKILL.md)** - Create seeded p5.js generative art with an algorithmic philosophy, interactive viewer, parameter controls, and reusable templates.
+
+### Research
+
+- **[research](./skills/research/SKILL.md)** - Investigate a question against high-trust primary sources and save the cited findings as a Markdown file in the repo.
 
 ### Decision Support
 
@@ -159,6 +168,7 @@ The framework document is the long-form reference. The `codex-project-settings` 
     |-- frontend-design/
     |-- grill-me/
     |-- idea-validator/
+    |-- research/
     `-- voice-preserving-editor/
 ```
 
@@ -181,6 +191,7 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/i
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/grill-me
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/frontend-design
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/algorithmic-art
+python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/decision-advisor
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/voice-preserving-editor
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/engineering-decision-review
