@@ -17,6 +17,10 @@ Each public skill should include:
 
 - **[frontend-design](./frontend-design/SKILL.md)** - Create distinctive frontend designs with subject-specific visual direction, typography, layout, motion, copy, and self-critique. Imported from `anthropics/skills` under Apache 2.0; see its `LICENSE.txt`.
 
+## Creative
+
+- **[algorithmic-art](./algorithmic-art/SKILL.md)** - Create seeded p5.js generative art with an algorithmic philosophy, interactive viewer, parameter controls, and reusable templates. Imported from `anthropics/skills` under Apache 2.0; see its `LICENSE.txt`.
+
 ## Decision Support
 
 - **[decision-advisor](./decision-advisor/SKILL.md)** - Analyze decisions through a confirmed decision frame, candidate options, jurisdiction, constraints, weight framework, six-lens research, critique loops, recommendation, action plan, and review signals.

@@ -4,7 +4,7 @@ Language: English | [中文](./README.zh-CN.md)
 
 ![Anime-style Codex skills engineering workspace](./assets/codex-skills-hero-engineering.png)
 
-Reusable Codex skills for thinking clearly, stress-testing plans, designing distinctive frontends, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
+Reusable Codex skills for thinking clearly, stress-testing plans, designing distinctive frontends, creating algorithmic art, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
 
 This repository is built around one practical problem: AI can produce more code, text, and plans than a human can comfortably audit. When the output surface gets too large, the user's own reasoning gets crowded out. Instead of thinking about the abstract shape of the project, the user is forced into low-level review of too much generated material.
 
@@ -58,6 +58,7 @@ Or install only one skill:
 npx skills@latest add AojiLi/codex-skills --skill idea-validator
 npx skills@latest add AojiLi/codex-skills --skill grill-me
 npx skills@latest add AojiLi/codex-skills --skill frontend-design
+npx skills@latest add AojiLi/codex-skills --skill algorithmic-art
 npx skills@latest add AojiLi/codex-skills --skill decision-advisor
 npx skills@latest add AojiLi/codex-skills --skill voice-preserving-editor
 npx skills@latest add AojiLi/codex-skills --skill engineering-decision-review
@@ -96,6 +97,10 @@ Some plans look reasonable until their hidden decision branches are questioned. 
 
 AI-generated interfaces often converge on generic palettes, layout tropes, and copy. [`frontend-design`](./skills/frontend-design/SKILL.md) adds a design-lead workflow for distinctive visual direction, typography, layout, motion, copy, and self-critique before and during UI implementation.
 
+### 8. Generative Art Needs A Real Algorithmic System
+
+Code-based art can become shallow random decoration without a computational idea behind it. [`algorithmic-art`](./skills/algorithmic-art/SKILL.md) creates p5.js generative art from an algorithmic philosophy, seeded randomness, interactive parameters, and reusable viewer templates.
+
 ## Skills
 
 See [skills/README.md](./skills/README.md) for the catalog.
@@ -108,6 +113,10 @@ See [skills/README.md](./skills/README.md) for the catalog.
 ### Frontend
 
 - **[frontend-design](./skills/frontend-design/SKILL.md)** - Create distinctive, intentional frontend designs with subject-specific visual direction, typography, layout, motion, copy, and critique.
+
+### Creative
+
+- **[algorithmic-art](./skills/algorithmic-art/SKILL.md)** - Create seeded p5.js generative art with an algorithmic philosophy, interactive viewer, parameter controls, and reusable templates.
 
 ### Decision Support
 
@@ -142,6 +151,7 @@ The framework document is the long-form reference. The `codex-project-settings` 
 |-- README.zh-CN.md
 |-- codex_agent_framework.md
 `-- skills/
+    |-- algorithmic-art/
     |-- README.md
     |-- codex-project-settings/
     |-- decision-advisor/
@@ -170,6 +180,7 @@ Validate all public skills:
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/idea-validator
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/grill-me
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/frontend-design
+python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/algorithmic-art
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/decision-advisor
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/voice-preserving-editor
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/engineering-decision-review
