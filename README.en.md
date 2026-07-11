@@ -4,7 +4,7 @@ Language: English | [中文](./README.zh-CN.md)
 
 ![Anime-style Codex skills engineering workspace](./assets/codex-skills-hero-engineering.png)
 
-Reusable Codex skills for thinking clearly, stress-testing plans, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
+Reusable Codex skills for thinking clearly, stress-testing plans, designing distinctive frontends, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
 
 This repository is built around one practical problem: AI can produce more code, text, and plans than a human can comfortably audit. When the output surface gets too large, the user's own reasoning gets crowded out. Instead of thinking about the abstract shape of the project, the user is forced into low-level review of too much generated material.
 
@@ -57,6 +57,7 @@ Or install only one skill:
 ```bash
 npx skills@latest add AojiLi/codex-skills --skill idea-validator
 npx skills@latest add AojiLi/codex-skills --skill grill-me
+npx skills@latest add AojiLi/codex-skills --skill frontend-design
 npx skills@latest add AojiLi/codex-skills --skill decision-advisor
 npx skills@latest add AojiLi/codex-skills --skill voice-preserving-editor
 npx skills@latest add AojiLi/codex-skills --skill engineering-decision-review
@@ -91,6 +92,10 @@ AI editing can over-polish personal writing until it no longer sounds like the a
 
 Some plans look reasonable until their hidden decision branches are questioned. [`grill-me`](./skills/grill-me/SKILL.md) interrogates a plan or design one question at a time, gives a recommended answer for each question, and explores the codebase instead of asking when the answer is discoverable.
 
+### 7. Frontends Should Not Look Templated
+
+AI-generated interfaces often converge on generic palettes, layout tropes, and copy. [`frontend-design`](./skills/frontend-design/SKILL.md) adds a design-lead workflow for distinctive visual direction, typography, layout, motion, copy, and self-critique before and during UI implementation.
+
 ## Skills
 
 See [skills/README.md](./skills/README.md) for the catalog.
@@ -99,6 +104,10 @@ See [skills/README.md](./skills/README.md) for the catalog.
 
 - **[idea-validator](./skills/idea-validator/SKILL.md)** - Clarify an idea, research it with independent lanes, challenge assumptions, and produce feasibility, value, and implementation conclusions.
 - **[grill-me](./skills/grill-me/SKILL.md)** - Stress-test a plan or design through one-question-at-a-time interrogation with recommended answers.
+
+### Frontend
+
+- **[frontend-design](./skills/frontend-design/SKILL.md)** - Create distinctive, intentional frontend designs with subject-specific visual direction, typography, layout, motion, copy, and critique.
 
 ### Decision Support
 
@@ -137,6 +146,7 @@ The framework document is the long-form reference. The `codex-project-settings` 
     |-- codex-project-settings/
     |-- decision-advisor/
     |-- engineering-decision-review/
+    |-- frontend-design/
     |-- grill-me/
     |-- idea-validator/
     `-- voice-preserving-editor/
@@ -159,6 +169,7 @@ Validate all public skills:
 ```bash
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/idea-validator
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/grill-me
+python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/frontend-design
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/decision-advisor
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/voice-preserving-editor
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/engineering-decision-review

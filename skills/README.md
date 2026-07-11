@@ -13,6 +13,10 @@ Each public skill should include:
 - **[idea-validator](./idea-validator/SKILL.md)** - Clarify a vague idea, run independent research lanes, challenge assumptions, and produce feasibility, value, differentiation, MVP, implementation, and validation conclusions.
 - **[grill-me](./grill-me/SKILL.md)** - Stress-test a plan or design through relentless one-question-at-a-time interrogation, recommended answers, and codebase exploration when the answer is discoverable locally.
 
+## Frontend
+
+- **[frontend-design](./frontend-design/SKILL.md)** - Create distinctive frontend designs with subject-specific visual direction, typography, layout, motion, copy, and self-critique. Imported from `anthropics/skills` under Apache 2.0; see its `LICENSE.txt`.
+
 ## Decision Support
 
 - **[decision-advisor](./decision-advisor/SKILL.md)** - Analyze decisions through a confirmed decision frame, candidate options, jurisdiction, constraints, weight framework, six-lens research, critique loops, recommendation, action plan, and review signals.
