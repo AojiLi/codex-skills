@@ -2,6 +2,31 @@
 
 Use these roles when generating Codex project settings.
 
+## Contents
+
+- Memory budgets and loading rules
+- `AGENTS.md`
+- `CONTEXT.md`
+- `ACTIVE_CONTEXT.md`
+- `STATUS.md`
+- Optional repo-local skills
+
+## Memory Budgets
+
+Treat these as engineering policy inferred from context-management research, not vendor limits:
+
+| File | Soft budget | Hard budget |
+| --- | ---: | ---: |
+| `CONTEXT.md` | 1,000 English words (about 1,330 tokens) | 1,500 words (about 2,000 tokens) |
+| `ACTIVE_CONTEXT.md` | 300 English words (about 400 tokens) | 500 words (about 670 tokens) |
+| `STATUS.md` | 500 English words (about 670 tokens) | 800 words (about 1,070 tokens) |
+| Combined | 1,800 English words (about 2,400 tokens) | 2,800 words (about 3,740 tokens) |
+
+- At the soft budget, prune duplication and stale detail during the next substantive update.
+- At the hard budget, stop appending until content is removed, rewritten, or moved to a linked source-of-truth document.
+- For Chinese and other languages without reliable whitespace-delimited words, use an approximate token budget or a project-calibrated character limit. Use line count only as a secondary guard and keep each file below 200 lines.
+- Use `AGENTS.md` as a router. Read `CONTEXT.md` for durable project facts, `ACTIVE_CONTEXT.md` for the current workstream, and `STATUS.md` only for progress, handoff, onboarding, or project-state questions.
+
 ## AGENTS.md
 
 Purpose: agent-facing repository entrypoint.
@@ -43,6 +68,8 @@ Avoid:
 - detailed chronological status
 - speculative plans that are not confirmed
 
+Replace obsolete facts in place. Do not retain chronology here. Move detailed subsystem explanations, runbooks, schemas, decision history, and large command catalogs to authoritative documents, then keep a short summary and link.
+
 ## ACTIVE_CONTEXT.md
 
 Purpose: current working direction. Overwrite it when the active direction changes.
@@ -63,6 +90,8 @@ Avoid:
 - long history
 - unrelated backlog
 
+Rewrite this file when the active goal or phase changes. Remove completed steps, resolved blockers, rejected options, and previous directions instead of appending them. When no work is active, reduce it to an explicit idle state and the next intended decision.
+
 ## STATUS.md
 
 Purpose: human-facing scan of project state.
@@ -77,7 +106,7 @@ Include:
 - next step
 - risks or blockers
 
-Keep it short enough to scan quickly.
+Update the current snapshot in place. Keep at most seven recent material changes; normally keep only the last 30 days, while allowing older entries when a slow-moving project needs them to explain the current state. Move older history to Git, release notes, a changelog, or completed plans.
 
 ## Optional .agents/skills
 

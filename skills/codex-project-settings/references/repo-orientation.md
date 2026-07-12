@@ -16,6 +16,29 @@ Read enough to understand the project:
 
 Do not infer the project only from directory name or old conversation.
 
+## Coverage Standard
+
+Build a coverage map before giving durable advice:
+
+- docs and product intent: `README*`, `docs/`, planning notes, ADRs, runbooks
+- build and tooling: package manager files, lockfiles, scripts, formatter/linter/test config
+- source shape: main entry points, module boundaries, domain folders, shared libraries
+- tests and quality: test directories, fixtures, CI checks, coverage or eval setup
+- runtime and deployment: env examples, Docker, CI/CD, infrastructure, migrations, schemas
+- local project memory: existing `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, `.agents/`
+
+For small repositories, inspect these directly. For large or multi-domain repositories, use subagent fan-out when available:
+
+- docs/product lane
+- build/tooling lane
+- source architecture lane
+- tests/quality lane
+- deploy/data/integration lane
+
+Each lane should return only evidence read, important paths, what the area appears to do, constraints, and unknowns. Do not pass conclusions between lanes before they report.
+
+If subagents are not available, manually sample representative paths and state that the coverage is manual. Never present sampled coverage as complete.
+
 ## Classify
 
 - `empty`: no meaningful files, or only git metadata/placeholders.
@@ -30,6 +53,8 @@ Before writing files, summarize:
 Repository classification:
 Project appears to be:
 Evidence read:
+Coverage read:
+Coverage not read:
 Likely stack:
 Known commands:
 Important paths:

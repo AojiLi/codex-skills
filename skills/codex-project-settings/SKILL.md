@@ -1,6 +1,6 @@
 ---
 name: codex-project-settings
-description: "Set up or update a repository with reusable Codex project settings: AGENTS.md, CONTEXT.md, ACTIVE_CONTEXT.md, STATUS.md, and optional repo-local skills. Use when the user wants to initialize a repo for long-term Codex work, create or repair Codex settings, adapt the Codex Project Settings Framework to an existing or empty project, or add reference-backed project guidance."
+description: "Set up or update a repository with reusable Codex project settings: AGENTS.md, CONTEXT.md, ACTIVE_CONTEXT.md, STATUS.md, and optional repo-local skills. Use when the user wants to initialize a repo for long-term Codex work, create or repair Codex settings, adapt the Codex Project Settings Framework to an existing or empty project, add reference-backed project guidance, or ensure Codex has explicit repository coverage before writing durable settings."
 ---
 
 # Codex Project Settings
@@ -9,7 +9,7 @@ Use this skill to turn any repository into a Codex-friendly project workspace. T
 
 ## Core Rule
 
-Do not generate Codex project settings before understanding the repository and confirming the intended project direction with the user.
+Do not generate Codex project settings before understanding the repository and confirming the intended project direction with the user. Do not claim broad repository understanding unless the evidence read, coverage limits, and unresolved unknowns are explicit. Keep project memory bounded: stable facts stay in `CONTEXT.md`, only the current narrow direction stays in `ACTIVE_CONTEXT.md`, and `STATUS.md` remains a rolling human-readable snapshot rather than an append-only history.
 
 ## Workflow
 
@@ -24,6 +24,8 @@ Inspect:
 - README, docs, package/config/build/test/deploy files
 - main source entry points when present
 
+Build an explicit coverage map before summarizing. For non-trivial repositories, inspect representative docs, configs, source entry points, tests, CI/deploy, data/schema, and domain modules. When the repository is large or spans multiple areas and subagents are available, use subagent fan-out for independent coverage lanes; keep their outputs concise and evidence-based. If subagents are unavailable or unnecessary, do the coverage manually and state the limit.
+
 Classify the repo as:
 
 - `empty`: not enough files to infer the project
@@ -35,7 +37,7 @@ Classify the repo as:
 Before writing settings:
 
 - For `empty` or `unclear`, ask the user what the project is, target user, success criteria, constraints, and near-term direction.
-- For `existing`, summarize what the repo appears to do, stack, commands, constraints, current state, and unknowns.
+- For `existing`, summarize what the repo appears to do, stack, commands, constraints, current state, coverage read, coverage not read, and unknowns.
 - Ask the user to confirm or correct the summary.
 
 Do not proceed to file writes until the project understanding is confirmed or the user explicitly asks for a provisional setup.
@@ -43,6 +45,8 @@ Do not proceed to file writes until the project understanding is confirmed or th
 ### 3. Plan The Settings
 
 Read `references/framework-files.md`.
+
+Apply its loading, retention, and soft/hard memory budgets when creating or updating the files.
 
 Choose which files to create or update:
 
@@ -59,7 +63,7 @@ Keep optional modules out unless the user or project needs them.
 
 Read `references/merge-rules.md`.
 
-If files already exist, merge with them. Do not overwrite user instructions, project facts, commands, or status history. Preserve local conventions and only add missing structure or update stale sections when there is evidence.
+If files already exist, merge with them. Do not silently discard user instructions, durable project facts, commands, or useful history. Preserve local conventions, update stale facts in place when there is evidence, replace confirmed obsolete active state, and keep status history within the rolling retention window defined in `references/framework-files.md`.
 
 ### 5. Add Reference Support When Needed
 
@@ -73,6 +77,8 @@ After writing files:
 
 - show the created or changed paths
 - summarize the project understanding encoded into settings
+- summarize repository coverage and blind spots
+- report memory-file size against the soft and hard budgets
 - state what was intentionally left out
 - run lightweight checks such as `git diff --check` when available
 - report any files that were merged instead of replaced
@@ -80,9 +86,9 @@ After writing files:
 ## File Roles
 
 - `AGENTS.md`: agent-facing entry rules, routing, and always-on constraints
-- `CONTEXT.md`: durable project facts, commands, architecture, paths, constraints, and invariants
-- `ACTIVE_CONTEXT.md`: current working direction, current goal, scope, decisions, and next step; overwrite when direction changes
-- `STATUS.md`: human-facing brief project state, timeline, current thinking, next step, and risks
+- `CONTEXT.md`: bounded durable project facts, commands, architecture, paths, constraints, and invariants; update facts in place
+- `ACTIVE_CONTEXT.md`: bounded current working direction, goal, scope, decisions, and next step; overwrite when direction changes and keep no old directions
+- `STATUS.md`: bounded human-facing project snapshot, recent material changes, current thinking, next step, and risks
 - `.agents/skills/`: repo-local optional workflows; do not create unless needed
 
 ## Output Rules
@@ -91,7 +97,8 @@ When done, return:
 
 1. repository classification
 2. confirmed project understanding
-3. files created or updated
-4. optional modules included or skipped
-5. checks run
-6. remaining questions or next setup step
+3. repository coverage read and remaining blind spots
+4. files created or updated
+5. optional modules included or skipped
+6. checks run
+7. remaining questions or next setup step
