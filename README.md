@@ -22,17 +22,49 @@ This repository is intentionally engineering-focused. General decision, writing,
 
 ### Planning And Validation
 
-- **[idea-validator](./skills/idea-validator/SKILL.md)** - Clarify a software or product idea, run independent research and skeptic loops, and produce feasibility, value, differentiation, MVP, implementation, and validation conclusions.
-- **[grill-me](./skills/grill-me/SKILL.md)** - Interrogate an engineering plan or design one decision branch at a time until the assumptions and tradeoffs are explicit.
+#### [idea-validator](./skills/idea-validator/SKILL.md)
+
+Use it before implementation when a software idea, product concept, research direction, or architecture thought is still incomplete. It clarifies the problem, user, solution, timing, success criteria, constraints, and unknowns one question at a time. After you confirm the brief, it asks whether to use five independent research subagents or run the same lanes sequentially, synthesizes the evidence, automatically runs up to five skeptic rounds, and returns feasibility, value, differentiation, MVP, implementation, validation, risk, and next-step conclusions.
+
+```text
+Use $idea-validator to evaluate this idea before I build it: [describe the idea].
+```
+
+#### [grill-me](./skills/grill-me/SKILL.md)
+
+Use it when you already have an engineering plan or design and want its hidden decisions challenged. It walks the decision tree one question at a time, gives a recommended answer with each question, and explores the repository itself when the answer is discoverable from code.
+
+```text
+Use $grill-me to stress-test this API migration plan: [describe the plan].
+```
 
 ### Research And Engineering Review
 
-- **[research](./skills/research/SKILL.md)** - Delegate research to a background agent, trace claims to high-trust primary sources, and save the cited findings in the repository.
-- **[engineering-decision-review](./skills/engineering-decision-review/SKILL.md)** - Review non-trivial engineering decisions with explicit repository coverage, evidence-backed tradeoffs, and small verifiable implementation slices.
+#### [research](./skills/research/SKILL.md)
+
+Use it when an engineering question depends on current documentation, APIs, specifications, source code, or other primary evidence. It delegates the reading to a background agent, traces important claims to first-party sources, and writes one cited Markdown report into the repository's existing research location.
+
+```text
+Use $research to investigate the current WebAuthn passkey APIs and save the findings in this repo.
+```
+
+#### [engineering-decision-review](./skills/engineering-decision-review/SKILL.md)
+
+Use it for architecture, refactoring, module design, migrations, technical tradeoffs, risk review, or implementation strategy that depends on an existing repository. It maps the relevant repository surface, reports coverage and blind spots, uses targeted subagent lanes when useful, builds a current-system model, compares realistic options, recommends one path, and divides it into reversible slices with checks and stop conditions.
+
+```text
+Use $engineering-decision-review to decide whether this repository should split the billing module into a separate service.
+```
 
 ### Project Setup
 
-- **[codex-project-settings](./skills/codex-project-settings/SKILL.md)** - Set up or update repository-level Codex settings with explicit repository coverage, bounded project memory, and optional repo-local workflows.
+#### [codex-project-settings](./skills/codex-project-settings/SKILL.md)
+
+Use it when starting long-term Codex work in a repository or repairing an existing setup. It inspects and classifies the repository, summarizes the evidence and blind spots, asks you to confirm its project understanding, then creates or safely merges `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, and only the repo-local skills the project actually needs. The project-memory files use explicit soft and hard size budgets.
+
+```text
+Use $codex-project-settings to initialize this repository for long-term Codex work.
+```
 
 ## Install
 
@@ -110,17 +142,49 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/<
 
 ### 规划与验证
 
-- **[idea-validator](./skills/idea-validator/SKILL.md)** - 澄清软件或产品 idea，通过独立研究和 skeptic loops，输出可行性、价值、差异化、MVP、实现和验证结论。
-- **[grill-me](./skills/grill-me/SKILL.md)** - 按决策分支持续追问工程计划或设计，直到假设和取舍被明确。
+#### [idea-validator](./skills/idea-validator/SKILL.md)
+
+适合在实现之前分析仍不完整的软件 idea、产品概念、研究方向或架构想法。它会一次问一个问题，澄清问题、用户、方案、时机、成功标准、约束和未知项。你确认 brief 后，它会询问使用五个独立 research subagents，还是在主 agent 中顺序执行相同研究路线；随后由主 agent 汇总证据，自动运行最多五轮 skeptic loop，最后给出可行性、价值、差异化、MVP、实现、验证、风险和下一步结论。
+
+```text
+使用 $idea-validator 在我开始实现前分析这个 idea：[描述 idea]。
+```
+
+#### [grill-me](./skills/grill-me/SKILL.md)
+
+适合已经有工程计划或设计，但希望把隐藏决策和假设问清楚的场景。它会沿着决策树一次问一个问题，每个问题都会附带推荐回答；如果答案可以从代码得到，它会先检查仓库而不是反问用户。
+
+```text
+使用 $grill-me 压力测试这个 API 迁移计划：[描述计划]。
+```
 
 ### 调研与工程审核
 
-- **[research](./skills/research/SKILL.md)** - 把调研交给后台 agent，追溯高可信一手资料，并把带引用的结果保存到仓库。
-- **[engineering-decision-review](./skills/engineering-decision-review/SKILL.md)** - 通过显式仓库覆盖、有证据的取舍和小型可验证实现切片来审核非平凡工程决策。
+#### [research](./skills/research/SKILL.md)
+
+适合需要核对当前文档、API、规范、源码或其他一手证据的工程问题。它会把阅读工作交给后台 agent，把重要结论追溯到官方文档、源码、spec 或 first-party API，并在仓库原有的调研位置保存一份带引用的 Markdown 报告。
+
+```text
+使用 $research 调研当前 WebAuthn passkey API，并把结果保存到这个仓库。
+```
+
+#### [engineering-decision-review](./skills/engineering-decision-review/SKILL.md)
+
+适合依赖现有仓库的架构、重构、模块设计、迁移、技术取舍、风险审核或实现策略问题。它会检查相关仓库范围，披露已读内容和 blind spots，在有必要时使用定向 subagent lanes，建立当前系统模型，比较真实可行的选项，推荐一条路径，并把它拆成带验证和停止条件的可逆步骤。
+
+```text
+使用 $engineering-decision-review 判断这个仓库是否应该把 billing 模块拆成独立服务。
+```
 
 ### 项目设置
 
-- **[codex-project-settings](./skills/codex-project-settings/SKILL.md)** - 在明确仓库覆盖后建立或更新 Codex 项目设置、有界项目记忆和可选 repo-local workflows。
+#### [codex-project-settings](./skills/codex-project-settings/SKILL.md)
+
+适合开始长期 Codex 项目工作，或者修复已有项目设置。它会检查并分类仓库，说明证据和 blind spots，让你确认它对项目的理解，然后创建或安全合并 `AGENTS.md`、`CONTEXT.md`、`ACTIVE_CONTEXT.md`、`STATUS.md`，并且只添加项目真正需要的 repo-local skills。三个项目记忆文件都有明确的目标值和硬上限。
+
+```text
+使用 $codex-project-settings 为这个仓库建立长期 Codex 项目设置。
+```
 
 ## 安装
 
