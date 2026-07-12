@@ -1,4 +1,0 @@
-interface:
-  display_name: "Decision Advisor"
-  short_description: "Analyze decisions through six lenses"
-  default_prompt: "Use $decision-advisor to help me make this decision with clarified goals, options, weights, research, critique, and a clear recommendation."

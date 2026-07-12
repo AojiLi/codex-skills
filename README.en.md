@@ -1,201 +1,85 @@
-# Codex Skills
+# Codex Engineering Skills
 
 Language: English | [中文](./README.zh-CN.md)
 
 ![Anime-style Codex skills engineering workspace](./assets/codex-skills-hero-engineering.png)
 
-Reusable Codex skills for thinking clearly, stress-testing plans, designing distinctive frontends, creating algorithmic art, researching primary sources, preserving writing voice, making better decisions, reviewing engineering tradeoffs, and setting up repositories so Codex can work with them over time.
+Reusable Codex skills for validating software ideas, stress-testing engineering plans, researching primary sources, reviewing repository-backed technical decisions, and establishing durable project settings.
 
-This repository is built around one practical problem: AI can produce more code, text, and plans than a human can comfortably audit. When the output surface gets too large, the user's own reasoning gets crowded out. Instead of thinking about the abstract shape of the project, the user is forced into low-level review of too much generated material.
+This repository is intentionally engineering-focused. General decision, writing, frontend-design, and algorithmic-art skills live in [AojiLi/codex-general-skills](https://github.com/AojiLi/codex-general-skills).
 
-For software where runtime speed, safety, correctness, stability, or security matter deeply, AI-generated code plus AI self-review is not enough. Experienced technical review remains necessary, even when that review is assisted by AI. The review burden becomes a real engineering cost.
+## Operating Model
 
-For individuals and small teams, that cost can be fatal. In lower-risk projects, it is often better to spend more time on product iteration than on heavyweight human review of every AI-generated detail. In that setting, AI generation and AI-assisted self-review are useful, but only if the work is kept scoped, contextualized, and easy to inspect.
+- Clarify the idea or engineering question before implementation.
+- Inspect relevant repository evidence before giving technical advice.
+- Use subagents when repository size or context pressure makes independent coverage useful.
+- Keep recommendations small, reversible, testable, and explicit about unknowns.
+- Store durable project facts, the current workstream, and human-facing status in separate bounded files.
 
-## Core Operating Model
+## Skills
 
-This repo tries to make AI work smaller, more reviewable, and less mentally expensive.
+### Planning And Validation
 
-- **Global idea loop**: use repeated clarification and skepticism to decide whether an idea is worth doing before implementation starts.
-- **Local project context**: keep durable project understanding in root-level files so Codex does not rediscover the same context every session.
-- **Active context management**: keep only the current narrow direction in a live context file, instead of mixing old directions with the current one.
-- **Human-readable status**: keep a short status file for the human reviewer, not for the model.
-- **Risk-sensitive review**: use stronger human review for high-risk systems; use scoped AI review for lower-risk, fast-iteration work.
-- **Optional workflow modules**: add repo-local workflow skills such as builder/checker or reference validation only when the project needs them.
+- **[idea-validator](./skills/idea-validator/SKILL.md)** - Clarify a software or product idea, run independent research and skeptic loops, and produce feasibility, value, differentiation, MVP, implementation, and validation conclusions.
+- **[grill-me](./skills/grill-me/SKILL.md)** - Interrogate an engineering plan or design one decision branch at a time until the assumptions and tradeoffs are explicit.
 
-## Local Project Settings
+### Research And Engineering Review
 
-The Codex project setup this repository promotes is:
+- **[research](./skills/research/SKILL.md)** - Delegate research to a background agent, trace claims to high-trust primary sources, and save the cited findings in the repository.
+- **[engineering-decision-review](./skills/engineering-decision-review/SKILL.md)** - Review non-trivial engineering decisions with explicit repository coverage, evidence-backed tradeoffs, and small verifiable implementation slices.
 
-- `AGENTS.md`: human-written preferences, repository rules, and routing instructions; AI may help fill details, but this file should stay readable to the user.
-- `CONTEXT.md`: durable project context, centered on the project's main direction. If the main direction changes, use a branch; if multiple directions must progress at once, use worktrees.
-- `ACTIVE_CONTEXT.md`: the current narrow direction inside the broader project direction. Update it constantly and do not preserve old narrow directions there.
-- `STATUS.md`: a human-facing change record and project snapshot.
-- `.agents/skills/`: optional repo-local workflows for project-specific loops such as builder/checker, reference validation, evaluation, or release.
+### Project Setup
 
-## Key Review Signals
+- **[codex-project-settings](./skills/codex-project-settings/SKILL.md)** - Set up or update repository-level Codex settings with explicit repository coverage, bounded project memory, and optional repo-local workflows.
 
-Use these signals to decide whether AI output is staying manageable:
+## Install
 
-- output size: can a human review it without losing the main idea?
-- context coverage: did the agent inspect the relevant repository surface before advising or editing?
-- risk level: does this affect security, data integrity, money, deployment, correctness, or performance?
-- review burden: is the human reviewing meaningful decisions or just fighting generated volume?
-- iteration speed: is the process helping the product move, or mostly creating review work?
-- reversibility: can the change be sliced, tested, and rolled back?
-
-## Quickstart
-
-Install the full repository:
+Install all engineering skills:
 
 ```bash
 npx skills@latest add AojiLi/codex-skills
 ```
 
-Or install only one skill:
+Install one skill:
 
 ```bash
 npx skills@latest add AojiLi/codex-skills --skill idea-validator
 npx skills@latest add AojiLi/codex-skills --skill grill-me
-npx skills@latest add AojiLi/codex-skills --skill frontend-design
-npx skills@latest add AojiLi/codex-skills --skill algorithmic-art
 npx skills@latest add AojiLi/codex-skills --skill research
-npx skills@latest add AojiLi/codex-skills --skill decision-advisor
-npx skills@latest add AojiLi/codex-skills --skill voice-preserving-editor
 npx skills@latest add AojiLi/codex-skills --skill engineering-decision-review
 npx skills@latest add AojiLi/codex-skills --skill codex-project-settings
 ```
 
-## Why These Skills Exist
+## Codex Project Settings Framework
 
-These skills address repeated failure modes when working with coding agents.
+The reusable project baseline is documented in [codex_agent_framework.md](./codex_agent_framework.md). Its default project memory model is:
 
-### 1. The Idea Is Not Clear Enough
+- `AGENTS.md`: repository entry rules and routing.
+- `CONTEXT.md`: bounded durable project facts and invariants.
+- `ACTIVE_CONTEXT.md`: one current direction, overwritten when the direction changes.
+- `STATUS.md`: a bounded human-facing project snapshot with recent material changes.
+- `.agents/skills/`: optional project-specific workflows.
 
-Agents can implement too early when the underlying idea is still vague. [`idea-validator`](./skills/idea-validator/SKILL.md) forces clarification, independent research lanes, skeptic loops, and a final feasibility judgment before implementation.
-
-### 2. The Decision Needs A Clear Recommendation
-
-Broad decisions can drift into vague pros and cons without a confirmed decision frame, options, weights, jurisdiction, and risk model. [`decision-advisor`](./skills/decision-advisor/SKILL.md) clarifies the decision, runs economics, strategy, psychology, risk management, legal/regulatory, and technical-feasibility lenses, critiques each lens, and returns a clear recommendation with an action plan and review signals.
-
-### 3. The Agent Gives Engineering Advice Too Early
-
-Agents often read a few files and then make architecture or refactoring recommendations without enough repository coverage. [`engineering-decision-review`](./skills/engineering-decision-review/SKILL.md) makes repository coverage explicit, uses subagent fan-out when useful, compares options, and turns the chosen path into small implementation slices.
-
-### 4. Every Project Needs A Stable Codex Setup
-
-Starting each repository from scratch makes Codex relearn where context, current direction, and project status should live. [`codex-project-settings`](./skills/codex-project-settings/SKILL.md) sets up or updates `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, and optional repo-local skills after confirming the project understanding.
-
-### 5. Writing Should Not Become Generic AI Prose
-
-AI editing can over-polish personal writing until it no longer sounds like the author. [`voice-preserving-editor`](./skills/voice-preserving-editor/SKILL.md) improves grammar, clarity, flow, accuracy, and missing connective text while preserving the user's meaning, rhythm, tone, warmth, and personal style.
-
-### 6. Plans Need Pressure Before Execution
-
-Some plans look reasonable until their hidden decision branches are questioned. [`grill-me`](./skills/grill-me/SKILL.md) interrogates a plan or design one question at a time, gives a recommended answer for each question, and explores the codebase instead of asking when the answer is discoverable.
-
-### 7. Frontends Should Not Look Templated
-
-AI-generated interfaces often converge on generic palettes, layout tropes, and copy. [`frontend-design`](./skills/frontend-design/SKILL.md) adds a design-lead workflow for distinctive visual direction, typography, layout, motion, copy, and self-critique before and during UI implementation.
-
-### 8. Generative Art Needs A Real Algorithmic System
-
-Code-based art can become shallow random decoration without a computational idea behind it. [`algorithmic-art`](./skills/algorithmic-art/SKILL.md) creates p5.js generative art from an algorithmic philosophy, seeded randomness, interactive parameters, and reusable viewer templates.
-
-### 9. Research Should Trace Claims To Primary Sources
-
-Agents can easily summarize summaries and lose the source of truth. [`research`](./skills/research/SKILL.md) delegates reading legwork to a background agent, checks high-trust primary sources such as official docs, source code, specs, and first-party APIs, then saves cited findings as a Markdown file in the repo.
-
-## Skills
-
-See [skills/README.md](./skills/README.md) for the catalog.
-
-### Planning
-
-- **[idea-validator](./skills/idea-validator/SKILL.md)** - Clarify an idea, research it with independent lanes, challenge assumptions, and produce feasibility, value, and implementation conclusions.
-- **[grill-me](./skills/grill-me/SKILL.md)** - Stress-test a plan or design through one-question-at-a-time interrogation with recommended answers.
-
-### Frontend
-
-- **[frontend-design](./skills/frontend-design/SKILL.md)** - Create distinctive, intentional frontend designs with subject-specific visual direction, typography, layout, motion, copy, and critique.
-
-### Creative
-
-- **[algorithmic-art](./skills/algorithmic-art/SKILL.md)** - Create seeded p5.js generative art with an algorithmic philosophy, interactive viewer, parameter controls, and reusable templates.
-
-### Research
-
-- **[research](./skills/research/SKILL.md)** - Investigate a question against high-trust primary sources and save the cited findings as a Markdown file in the repo.
-
-### Decision Support
-
-- **[decision-advisor](./skills/decision-advisor/SKILL.md)** - Analyze decisions through clarified options, weights, jurisdiction, six-lens research, critique loops, and a clear recommendation.
-
-### Writing
-
-- **[voice-preserving-editor](./skills/voice-preserving-editor/SKILL.md)** - Edit prose, Markdown, docs, READMEs, DOCX, or Google Docs while preserving the author's meaning, tone, warmth, and personal style.
-
-### Engineering
-
-- **[engineering-decision-review](./skills/engineering-decision-review/SKILL.md)** - Review non-trivial engineering decisions with explicit repo coverage, subagent fan-out, tradeoff analysis, and implementation slices.
-
-### Project Setup
-
-- **[codex-project-settings](./skills/codex-project-settings/SKILL.md)** - Set up or update a repository with Codex project settings and optional repo-local workflows.
-
-## Framework
-
-- **[Codex Project Settings Framework](./codex_agent_framework.md)** - A reusable repository structure for `AGENTS.md`, context files, optional repo-local workflows, and reference-backed project guidance.
-
-The framework document is the long-form reference. The `codex-project-settings` skill is the executable workflow for applying that framework to a real repository.
-
-## Repository Layout
+## Structure
 
 ```text
-.
-|-- .gitignore
-|-- assets/
+codex-skills/
 |-- README.md
 |-- README.en.md
 |-- README.zh-CN.md
 |-- codex_agent_framework.md
 `-- skills/
-    |-- algorithmic-art/
-    |-- README.md
-    |-- codex-project-settings/
-    |-- decision-advisor/
-    |-- engineering-decision-review/
-    |-- frontend-design/
-    |-- grill-me/
     |-- idea-validator/
+    |-- grill-me/
     |-- research/
-    `-- voice-preserving-editor/
+    |-- engineering-decision-review/
+    `-- codex-project-settings/
 ```
 
-Each skill is self-contained:
+## Validation
 
-```text
-skills/<skill-name>/
-|-- SKILL.md
-|-- agents/
-|   `-- openai.yaml
-`-- references/
-```
-
-## Validate
-
-Validate all public skills:
+Validate a skill with the bundled Codex validator:
 
 ```bash
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/idea-validator
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/grill-me
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/frontend-design
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/algorithmic-art
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/decision-advisor
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/voice-preserving-editor
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/engineering-decision-review
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/codex-project-settings
+python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/<skill-name>
 ```
-
-If the default Python environment does not have `PyYAML`, run validation from a temporary virtual environment with `PyYAML` installed.

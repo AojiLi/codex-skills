@@ -1,4 +1,0 @@
-interface:
-  display_name: "Voice-Preserving Editor"
-  short_description: "Edit text without losing your voice"
-  default_prompt: "Use $voice-preserving-editor to polish this paragraph while preserving my voice and original meaning."
