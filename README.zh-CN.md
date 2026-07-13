@@ -4,29 +4,21 @@
 
 ![二次元风格 Codex skills 工程化工作台](./assets/codex-skills-hero-engineering.png)
 
-这是一组工程专用的 Codex skills，用于验证软件 idea、压力测试工程计划、调研一手资料、基于仓库证据审核技术决策，以及建立长期可维护的项目设置。
+这是一组工程专用的 Codex skills，用于压力测试工程计划、调研一手资料、基于仓库证据审核技术决策，以及建立长期可维护的项目设置。
 
-这个仓库现在只关注工程工作流。通用决策、文字编辑、前端设计和算法艺术 skills 已移动到 [AojiLi/codex-general-skills](https://github.com/AojiLi/codex-general-skills)。
+这个仓库现在只关注工程工作流。通用 idea 验证、决策、文字编辑、前端设计和算法艺术 skills 已移动到 [AojiLi/codex-general-skills](https://github.com/AojiLi/codex-general-skills)。
 
 ## 工作模型
 
-- 在实现前先澄清 idea 或工程问题。
+- 在实现前先澄清工程问题。
 - 在给出技术建议前检查相关仓库证据。
 - 当仓库较大或主上下文压力较高时，使用 subagents 做独立覆盖。
 - 推荐路径保持小、可逆、可测试，并明确披露未知部分。
-- 把稳定项目事实、当前工作方向和给人看的状态分开存放，并限制长度。
+- 把稳定项目事实放在权威文档中，只在需要时读取可选上下文。
 
 ## Skills
 
-### 规划与验证
-
-#### [idea-validator](./skills/idea-validator/SKILL.md)
-
-适合在实现之前分析仍不完整的软件 idea、产品概念、研究方向或架构想法。它会一次问一个问题，澄清问题、用户、方案、时机、成功标准、约束和未知项。你确认 brief 后，它会询问使用五个独立 research subagents，还是在主 agent 中顺序执行相同研究路线；随后由主 agent 汇总证据，自动运行最多五轮 skeptic loop，最后给出可行性、价值、差异化、MVP、实现、验证、风险和下一步结论。
-
-```text
-使用 $idea-validator 在我开始实现前分析这个 idea：[描述 idea]。
-```
+### 规划与压力测试
 
 #### [grill-me](./skills/grill-me/SKILL.md)
 
@@ -58,7 +50,7 @@
 
 #### [codex-project-settings](./skills/codex-project-settings/SKILL.md)
 
-适合开始长期 Codex 项目工作，或者修复已有项目设置。它会检查并分类仓库，说明证据和 blind spots，让你确认它对项目的理解，然后建立最小够用的设置：Codex 原生发现的 `AGENTS.md`，以及项目真正需要的按需上下文文件和 repo-local skills。可选上下文文件具有明确的读取路由、目标值和硬上限。
+适合开始长期 Codex 项目工作，或者修复已有项目设置。它会检查并分类仓库，说明证据和 blind spots，让你确认它对项目的理解，然后建立最小够用的设置：Codex 原生发现的 `AGENTS.md`、确有需要时才创建的 `CONTEXT.md`，以及项目专用 skills。`CONTEXT.md` 存在时采用明确的读取路由、目标值和硬上限。
 
 ```text
 使用 $codex-project-settings 为这个仓库建立长期 Codex 项目设置。
@@ -75,7 +67,6 @@ npx skills@latest add AojiLi/codex-skills
 安装单个 skill：
 
 ```bash
-npx skills@latest add AojiLi/codex-skills --skill idea-validator
 npx skills@latest add AojiLi/codex-skills --skill grill-me
 npx skills@latest add AojiLi/codex-skills --skill research
 npx skills@latest add AojiLi/codex-skills --skill engineering-decision-review
@@ -88,8 +79,6 @@ npx skills@latest add AojiLi/codex-skills --skill codex-project-settings
 
 - `AGENTS.md`：Codex 原生发现的仓库命令、规则、验证要求和路由。
 - `CONTEXT.md`：可选、按需读取的稳定项目事实和约束。
-- `ACTIVE_CONTEXT.md`：可选的跨任务当前方向，方向变化时整体覆盖。
-- `STATUS.md`：可选、有界的人工项目状态快照。
 - `.agents/skills/`：可选的项目专用工作流。
 
 ## 目录结构
@@ -101,7 +90,6 @@ codex-skills/
 |-- README.zh-CN.md
 |-- codex_agent_framework.md
 `-- skills/
-    |-- idea-validator/
     |-- grill-me/
     |-- research/
     |-- engineering-decision-review/

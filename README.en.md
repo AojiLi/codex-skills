@@ -4,29 +4,21 @@ Language: English | [中文](./README.zh-CN.md)
 
 ![Anime-style Codex skills engineering workspace](./assets/codex-skills-hero-engineering.png)
 
-Reusable Codex skills for validating software ideas, stress-testing engineering plans, researching primary sources, reviewing repository-backed technical decisions, and establishing durable project settings.
+Reusable Codex skills for stress-testing engineering plans, researching primary sources, reviewing repository-backed technical decisions, and establishing durable project settings.
 
-This repository is intentionally engineering-focused. General decision, writing, frontend-design, and algorithmic-art skills live in [AojiLi/codex-general-skills](https://github.com/AojiLi/codex-general-skills).
+This repository is intentionally engineering-focused. General idea-validation, decision, writing, frontend-design, and algorithmic-art skills live in [AojiLi/codex-general-skills](https://github.com/AojiLi/codex-general-skills).
 
 ## Operating Model
 
-- Clarify the idea or engineering question before implementation.
+- Clarify the engineering question before implementation.
 - Inspect relevant repository evidence before giving technical advice.
 - Use subagents when repository size or context pressure makes independent coverage useful.
 - Keep recommendations small, reversible, testable, and explicit about unknowns.
-- Store durable project facts, the current workstream, and human-facing status in separate bounded files.
+- Keep durable project facts in authoritative docs and load optional context only when needed.
 
 ## Skills
 
-### Planning And Validation
-
-#### [idea-validator](./skills/idea-validator/SKILL.md)
-
-Use it before implementation when a software idea, product concept, research direction, or architecture thought is still incomplete. It clarifies the problem, user, solution, timing, success criteria, constraints, and unknowns one question at a time. After you confirm the brief, it asks whether to use five independent research subagents or run the same lanes sequentially, synthesizes the evidence, automatically runs up to five skeptic rounds, and returns feasibility, value, differentiation, MVP, implementation, validation, risk, and next-step conclusions.
-
-```text
-Use $idea-validator to evaluate this idea before I build it: [describe the idea].
-```
+### Planning And Stress Testing
 
 #### [grill-me](./skills/grill-me/SKILL.md)
 
@@ -58,7 +50,7 @@ Use $engineering-decision-review to decide whether this repository should split 
 
 #### [codex-project-settings](./skills/codex-project-settings/SKILL.md)
 
-Use it when starting long-term Codex work in a repository or repairing an existing setup. It inspects and classifies the repository, summarizes the evidence and blind spots, asks you to confirm its project understanding, then creates or safely merges the smallest useful setup: native `AGENTS.md` guidance plus only the on-demand context files and repo-local skills the project actually needs. Optional context files use explicit routing and soft and hard size budgets.
+Use it when starting long-term Codex work in a repository or repairing an existing setup. It inspects and classifies the repository, summarizes the evidence and blind spots, asks you to confirm its project understanding, then creates or safely merges the smallest useful setup: native `AGENTS.md` guidance, optional on-demand `CONTEXT.md`, and repo-local skills the project actually needs. When present, `CONTEXT.md` uses explicit routing and soft and hard size budgets.
 
 ```text
 Use $codex-project-settings to initialize this repository for long-term Codex work.
@@ -75,7 +67,6 @@ npx skills@latest add AojiLi/codex-skills
 Install one skill:
 
 ```bash
-npx skills@latest add AojiLi/codex-skills --skill idea-validator
 npx skills@latest add AojiLi/codex-skills --skill grill-me
 npx skills@latest add AojiLi/codex-skills --skill research
 npx skills@latest add AojiLi/codex-skills --skill engineering-decision-review
@@ -88,8 +79,6 @@ The reusable project baseline is documented in [codex_agent_framework.md](./code
 
 - `AGENTS.md`: natively discovered repository commands, rules, verification, and routing.
 - `CONTEXT.md`: optional on-demand durable project facts and invariants.
-- `ACTIVE_CONTEXT.md`: optional current multi-session direction, overwritten when the direction changes.
-- `STATUS.md`: optional bounded human-facing project snapshot.
 - `.agents/skills/`: optional project-specific workflows.
 
 ## Structure
@@ -101,7 +90,6 @@ codex-skills/
 |-- README.zh-CN.md
 |-- codex_agent_framework.md
 `-- skills/
-    |-- idea-validator/
     |-- grill-me/
     |-- research/
     |-- engineering-decision-review/

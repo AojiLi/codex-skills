@@ -13,7 +13,7 @@ Use these rules when settings files already exist.
 ## Budget Handling
 
 - Apply the optional context-file soft and hard budgets in `framework-files.md`.
-- Treat Codex's discovered `AGENTS.md` byte limit separately from the framework's optional context budgets.
+- Treat Codex's discovered `AGENTS.md` byte limit separately from the framework's optional context budget.
 - At the soft budget, compact the file during the next substantive update.
 - At the hard budget, do not append. Remove duplication, rewrite stale material, or move detail to a linked source of truth first.
 - For English prose, check words with tools such as `wc -w`. For Chinese or other languages without reliable word boundaries, use approximate tokens or a project-calibrated character count.
@@ -45,8 +45,6 @@ If existing instructions conflict with the framework:
 
 - `AGENTS.md`: merge natively discovered commands, rules, verification requirements, and routing; keep repository-specific agent instructions and avoid current task state.
 - `CONTEXT.md`: preserve durable facts, replace verified stale facts in place, and move detailed history or subsystem material to authoritative linked documents. Remove commands or rules already canonical in `AGENTS.md`.
-- `ACTIVE_CONTEXT.md`: overwrite when the user confirms the active direction changed; do not retain completed or abandoned directions in this file.
-- `STATUS.md`: update the snapshot in place and append only a material recent change. Keep at most seven recent material changes, normally from the last 30 days; use Git, release notes, a changelog, or completed plans for older history.
 - `.agents/`: preserve existing local skills; add optional modules only when requested or clearly needed.
 
 Do not create a missing optional file merely because the framework names it. Re-evaluate whether the repository still needs that role before restoring or adding it.

@@ -1,8 +1,7 @@
 # Engineering Skills
 
-## Planning And Validation
+## Planning And Stress Testing
 
-- **[idea-validator](./idea-validator/SKILL.md)** - Clarify a software or product idea, run independent research and skeptic loops, and produce feasibility, implementation, and validation conclusions.
 - **[grill-me](./grill-me/SKILL.md)** - Interrogate an engineering plan or design until its assumptions and tradeoffs are explicit.
 
 ## Research And Review

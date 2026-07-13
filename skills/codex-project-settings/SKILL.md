@@ -1,6 +1,6 @@
 ---
 name: codex-project-settings
-description: "Set up or update a repository with native Codex AGENTS.md guidance plus optional on-demand CONTEXT.md, ACTIVE_CONTEXT.md, STATUS.md, and repo-local skills. Use when the user wants to initialize a repo for long-term Codex work, create or repair Codex settings, adapt the Codex Project Settings Framework to an existing or empty project, add reference-backed project guidance, reduce project-instruction context, or ensure Codex has explicit repository coverage before writing durable settings."
+description: "Set up or update a repository with native Codex AGENTS.md guidance plus optional on-demand CONTEXT.md and repo-local skills. Use when the user wants to initialize a repo for long-term Codex work, create or repair Codex settings, adapt the Codex Project Settings Framework to an existing or empty project, add reference-backed project guidance, reduce project-instruction context, or ensure Codex has explicit repository coverage before writing durable settings."
 ---
 
 # Codex Project Settings
@@ -11,7 +11,7 @@ Use this skill to turn a repository into a Codex-friendly workspace. Produce onl
 
 Do not generate durable project settings before understanding the repository and confirming the intended direction with the user. Do not claim broad repository understanding unless the evidence read, coverage limits, and unresolved unknowns are explicit.
 
-Among the four core files in this framework, treat only `AGENTS.md` as natively discovered project guidance. Codex also supports `AGENTS.override.md` as a replacement instruction filename. Treat `CONTEXT.md`, `ACTIVE_CONTEXT.md`, and `STATUS.md` as optional ordinary Markdown documents that Codex reads only when the prompt, `AGENTS.md`, or another loaded workflow explicitly routes to them. Never describe those optional files as Codex-native memory or assume they are automatically loaded.
+Treat `AGENTS.md` as the natively discovered project-guidance file. Codex also supports `AGENTS.override.md` as a replacement instruction filename. Treat `CONTEXT.md` as an optional ordinary Markdown document that Codex reads only when the prompt, `AGENTS.md`, or another loaded workflow explicitly routes to it. Never describe it as Codex-native memory or assume it is automatically loaded.
 
 ## Workflow
 
@@ -22,7 +22,7 @@ Read `references/repo-orientation.md`.
 Inspect:
 
 - file tree and git status
-- existing `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, `.agents/`
+- existing `AGENTS.md`, `AGENTS.override.md`, `CONTEXT.md`, `.agents/`
 - README, docs, package/config/build/test/deploy files
 - main source entry points when present
 
@@ -54,8 +54,6 @@ Choose which files to create or update:
 
 - `AGENTS.md`: create or repair unless the user declines or the existing guidance is already sufficient
 - `CONTEXT.md`: create only when durable project facts are not already clear in authoritative checked-in docs and would help across tasks
-- `ACTIVE_CONTEXT.md`: create only for a current multi-session workstream that needs a replaceable, branch- or direction-specific snapshot
-- `STATUS.md`: create only when a separate human-facing status snapshot adds value beyond Git, issues, changelogs, plans, or project-management tools
 - `.agents/skills/<reference-skill>/`: optional for reference-backed project decisions
 - `.agents/skills/<workflow-skill>/`: optional for project-specific coding, eval, release, or research workflows
 
@@ -79,7 +77,7 @@ Keep native discovery accurate:
 
 Read `references/merge-rules.md`.
 
-If files already exist, merge with them. Do not silently discard user instructions, durable project facts, commands, or useful history. Preserve local conventions, update stale facts in place when there is evidence, replace confirmed obsolete active state, and keep status history within the rolling retention window defined in `references/framework-files.md`.
+If files already exist, merge with them. Do not silently discard user instructions, durable project facts, commands, or useful history. Preserve local conventions and update stale facts in place when there is evidence.
 
 When two files repeat the same fact or rule, preserve one canonical copy and replace the duplicate with a short link or routing instruction. Do not move operational commands out of `AGENTS.md` when Codex needs them on every relevant task.
 
@@ -109,8 +107,6 @@ After writing files:
 
 - `AGENTS.md`: natively discovered repository rules, exact commands, verification requirements, and optional-document routing
 - `CONTEXT.md`: optional bounded durable project facts, architecture summary, constraints, invariants, and links to authoritative docs; update facts in place
-- `ACTIVE_CONTEXT.md`: optional bounded current workstream, goal, scope, decisions, unknowns, and next step; overwrite when direction changes and keep no old directions
-- `STATUS.md`: optional bounded human-facing project snapshot, recent material changes, current thinking, next step, and risks
 - `.agents/skills/`: repo-local optional workflows; do not create unless needed
 
 ## Output Rules

@@ -8,7 +8,7 @@ Read enough to understand the project:
 
 - `git status --short` and current branch
 - top-level file tree
-- `README*`, `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`
+- `README*`, `AGENTS.md`, `AGENTS.override.md`, `CONTEXT.md`
 - `docs/`, `runbook*`, design notes, or project planning files
 - package manager and build/test config
 - deploy, CI, env, schema, migration, or infrastructure config
@@ -25,7 +25,7 @@ Build a coverage map before giving durable advice:
 - source shape: main entry points, module boundaries, domain folders, shared libraries
 - tests and quality: test directories, fixtures, CI checks, coverage or eval setup
 - runtime and deployment: env examples, Docker, CI/CD, infrastructure, migrations, schemas
-- project guidance and optional context: existing `AGENTS.md`, `AGENTS.override.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, `.agents/`
+- project guidance and optional context: existing `AGENTS.md`, `AGENTS.override.md`, `CONTEXT.md`, `.agents/`
 
 For small repositories, inspect these directly. For large or multi-domain repositories, use subagent fan-out when available:
 
