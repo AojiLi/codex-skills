@@ -12,6 +12,6 @@
 
 ## Project Setup
 
-- **[codex-project-settings](./codex-project-settings/SKILL.md)** - Create or update Codex project settings with explicit repository coverage and bounded project memory.
+- **[codex-project-settings](./codex-project-settings/SKILL.md)** - Create or update native `AGENTS.md` guidance plus only the optional on-demand context files a repository needs, with explicit repository coverage and bounded context.
 
 General-purpose decision, writing, frontend-design, and algorithmic-art skills live in [AojiLi/codex-general-skills](https://github.com/AojiLi/codex-general-skills).

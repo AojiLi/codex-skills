@@ -1,11 +1,14 @@
 # Codex Project Settings Framework
 
-This is a Codex settings baseline that can be copied into any repository. It is not meant to force every project into the same heavy process. Its purpose is to give each project a clear default structure: where Codex should read first, where durable project facts live, how the current direction is stored, where human-readable status lives, and how reference-backed work should confirm the project understanding before research begins.
+This is a selective Codex settings baseline for repositories. It is not a four-file template to copy everywhere. Its purpose is to define a small native instruction layer, optional on-demand context, and project-specific workflows without loading irrelevant material into every task.
+
+Among the four core files, only `AGENTS.md` has native Codex project-instruction discovery; Codex also supports `AGENTS.override.md` as a replacement instruction filename. `CONTEXT.md`, `ACTIVE_CONTEXT.md`, and `STATUS.md` are optional ordinary Markdown documents. Codex reads them only when the current prompt, `AGENTS.md`, or another loaded workflow explicitly routes to them.
 
 ## Intended Use
 
-- Start each new project with `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, and `STATUS.md`.
-- Keep those memory files bounded and route them by need instead of loading all project history into every task.
+- Start with a small root `AGENTS.md` when the repository needs persistent Codex guidance.
+- Add `CONTEXT.md`, `ACTIVE_CONTEXT.md`, or `STATUS.md` only when each file has a distinct role that existing documentation, Git, issues, plans, or project-management tools do not already fill.
+- Keep optional context bounded and route it by task instead of loading all project material every time.
 - Put repo-local Codex workflow modules in `.agents/skills/` only when the project needs them.
 - Use `<reference-skill>` when project decisions need support from papers, open-source repositories, protocols, APIs, schemas, or other references.
 - Treat modules such as `builder-checker` as optional. Do not copy them into projects that do not need them.
@@ -13,22 +16,24 @@ This is a Codex settings baseline that can be copied into any repository. It is 
 
 ## New Project Setup
 
-1. Create or copy root `AGENTS.md`, and define always-on Codex rules plus optional skill routing.
-2. Create `CONTEXT.md` for project facts, goals, stack, commands, paths, architecture, constraints, and invariants.
-3. Create `ACTIVE_CONTEXT.md` for the current active direction, current goal, scope boundaries, and next step.
-4. Create `STATUS.md` as a quick human-readable scan of project status, recent material changes, current thinking, risks, and blockers.
-5. Apply the memory budgets below and define how stale or historical content is pruned.
-6. If the project needs systematic research or reference-backed judgment, create `.agents/skills/<reference-skill>/`.
-7. If the project needs a strict implementation, checking, evaluation, or release loop, add the relevant repo-local workflow skill.
+1. Inspect the repository and confirm the project understanding with the user.
+2. Create or repair root `AGENTS.md` with exact recurring commands, repository rules, verification boundaries, and selective routing.
+3. Create `CONTEXT.md` only when durable facts need a concise cross-task source that is not already provided by authoritative docs.
+4. Create `ACTIVE_CONTEXT.md` only when a multi-session workstream needs a replaceable current-state snapshot.
+5. Create `STATUS.md` only when a separate human-facing status snapshot will be useful and maintained.
+6. Decide which files are shared and tracked versus intentionally local and ignored; state the consequences.
+7. Apply the optional context budgets below and define how stale content is replaced or pruned.
+8. If the project needs systematic research or reference-backed judgment, create `.agents/skills/<reference-skill>/`.
+9. If the project needs a strict implementation, checking, evaluation, or release loop, add the relevant repo-local workflow skill.
 
 ## Repository Structure
 
 ```text
 repository/
 |-- AGENTS.md
-|-- CONTEXT.md
-|-- ACTIVE_CONTEXT.md
-|-- STATUS.md
+|-- CONTEXT.md                         # optional durable context
+|-- ACTIVE_CONTEXT.md                  # optional current workstream
+|-- STATUS.md                          # optional human snapshot
 `-- .agents/
     `-- skills/
         |-- builder-checker/              # optional
@@ -87,17 +92,18 @@ repository/
 
 ```text
 AGENTS.md
-|-- always-on work rules
+|-- natively discovered commands and work rules
+|-- verification and safety boundaries
 |-- optional workflow skill routing
 `-- <reference-skill> routing
 
-CONTEXT.md
-`-- bounded durable project facts, commands, paths, constraints, and invariants for agents
+CONTEXT.md (optional, on demand)
+`-- bounded durable project facts, paths, constraints, invariants, and authoritative links
 
-ACTIVE_CONTEXT.md
+ACTIVE_CONTEXT.md (optional, on demand)
 `-- bounded current direction, goal, scope, and next step; overwrite it when the active direction changes
 
-STATUS.md
+STATUS.md (optional, on demand)
 `-- bounded human-readable snapshot: current state, recent material changes, next step, and risks
 
 .agents/skills/<workflow-skill>/
@@ -113,23 +119,44 @@ STATUS.md
 `-- project decision support using papers, open-source repos, protocols, APIs, schemas, and other references
 ```
 
-## Memory Budgets
+## Native Loading Model
 
-These are framework policy, not model or vendor limits:
+- Global personal guidance belongs in `~/.codex/AGENTS.md` or the configured `CODEX_HOME`.
+- Project guidance is discovered from the project root to the session's starting working directory, inclusive. Codex does not recursively load every descendant `AGENTS.md`.
+- At each directory level, Codex loads at most one file: `AGENTS.override.md`, then `AGENTS.md`, then configured fallback filenames.
+- `AGENTS.override.md` replaces `AGENTS.md` at the same level; it is not additive.
+- `project_doc_fallback_filenames` supplies fallback names, not additional context files to read alongside `AGENTS.md`.
+- The discovered project instruction chain is bounded by `project_doc_max_bytes`, currently 32 KiB by default. Inspect the active configuration before changing it.
+- Use nested `AGENTS.md` for narrowly scoped subtree rules and verify from a working directory inside the intended subtree.
+
+Primary references: [OpenAI AGENTS.md documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md), [OpenAI Codex customization guidance](https://developers.openai.com/codex/concepts/customization#agents-guidance), and the [`openai/codex` discovery implementation](https://github.com/openai/codex/blob/main/codex-rs/core/src/agents_md.rs).
+
+## Optional Context Budgets
+
+These are framework policy for optional on-demand files, not model or vendor limits:
 
 | File | Soft budget | Hard budget |
 | --- | ---: | ---: |
 | `CONTEXT.md` | 1,000 English words (about 1,330 tokens) | 1,500 words (about 2,000 tokens) |
 | `ACTIVE_CONTEXT.md` | 300 English words (about 400 tokens) | 500 words (about 670 tokens) |
 | `STATUS.md` | 500 English words (about 670 tokens) | 800 words (about 1,070 tokens) |
-| Combined | 1,800 English words (about 2,400 tokens) | 2,800 words (about 3,740 tokens) |
+| Combined optional context | 1,800 English words (about 2,400 tokens) | 2,800 words (about 3,740 tokens) |
 
 - At the soft budget, prune during the next substantive update.
 - At the hard budget, stop appending until stale, duplicated, or detailed material is removed, rewritten, or moved to a linked source of truth.
 - For Chinese and other languages without reliable whitespace-delimited words, use approximate tokens or a project-calibrated character count. Keep every file below 200 lines as a secondary guard.
-- Read `CONTEXT.md` when durable facts are needed, `ACTIVE_CONTEXT.md` for the current workstream, and `STATUS.md` only for progress, handoff, onboarding, or project-state questions.
+- When present, read `CONTEXT.md` for durable facts, `ACTIVE_CONTEXT.md` for the current workstream, and `STATUS.md` only for progress, handoff, onboarding, or project-state questions.
+- Optional context consumes model context only when Codex is routed to read it. Do not route every task through every file.
 - Keep no chronology in `CONTEXT.md`, no previous directions in `ACTIVE_CONTEXT.md`, and no more than seven recent material changes in `STATUS.md`.
 - During setup or maintenance, measure each file and the combined total, then report the final size against both budgets. For English prose, `wc -w` is an acceptable audit proxy.
+
+## Git Tracking Policy
+
+- Commit shared repository rules and durable team context so they reach teammates, other computers, and remote Codex environments.
+- Put personal cross-repository preferences in `~/.codex/AGENTS.md`.
+- Gitignore volatile, private, or machine-local state only when that is intentional.
+- Explain that ignored files will not travel with the repository.
+- Never store secrets in any project context file, tracked or ignored.
 
 ## Reference Verification Area
 
@@ -341,7 +368,7 @@ references/repos/
 
 ## CONTEXT.md
 
-Target: 1,000 English words. Hard limit: 1,500 words. Replace stale facts in place and move detailed history or subsystem documentation to an authoritative linked document.
+Optional. Create only when durable project facts are not already clear in authoritative docs and will help across tasks. Target: 1,000 English words. Hard limit: 1,500 words. Replace stale facts in place and link to detailed source-of-truth documents.
 
 ```md
 # Project Context
@@ -356,18 +383,17 @@ The stable project purpose and the problem it solves.
 
 Who the project serves and the durable use case.
 
-## Stack And Commands
+## System Shape
 
 - Stack:
-- Setup:
-- Run:
-- Test:
-- Lint or format:
+- Runtime:
+- Data flow:
 
 ## Architecture And Important Paths
 
 - Architecture summary:
 - Important paths:
+- Authoritative docs:
 
 ## External Services And Integrations
 
@@ -389,7 +415,7 @@ Who the project serves and the durable use case.
 
 ## ACTIVE_CONTEXT.md
 
-Target: 300 English words. Hard limit: 500 words. Rewrite the file when the active goal or phase changes; keep no completed or abandoned directions.
+Optional. Create only for a multi-session workstream that needs a replaceable current-state snapshot. Target: 300 English words. Hard limit: 500 words. Rewrite the file when the active goal or phase changes; keep no completed or abandoned directions.
 
 ```md
 # Active Context
@@ -425,7 +451,7 @@ The single most useful next step.
 
 ## STATUS.md
 
-Target: 500 English words. Hard limit: 800 words. Update the current snapshot in place and keep at most seven recent material changes, normally from the last 30 days; retain older entries only when a slow-moving project needs them to explain the current state.
+Optional. Create only when a separate human-facing repository snapshot adds value beyond issues, Git, changelogs, plans, or project-management tools. Target: 500 English words. Hard limit: 800 words. Update the current snapshot in place and keep at most seven recent material changes, normally from the last 30 days.
 
 ```md
 # Project Status
@@ -463,19 +489,35 @@ One sentence explaining where the project currently stands.
 ```md
 # Agent Instructions
 
-This file contains only repository-level entry rules. Project facts, commands, architecture, deployment state, and long-term context live in `CONTEXT.md`. The current active direction lives in `ACTIVE_CONTEXT.md`; overwrite it when the active direction changes and do not preserve old directions there. The human-readable project snapshot, recent material changes, and current thinking live in `STATUS.md`.
+This file contains natively discovered repository-level instructions. Keep exact recurring commands, implementation rules, verification requirements, and selective routing here. Optional project context lives in separate files only when those files exist and add value.
+
+## Repository Commands
+
+- Setup: `<command>`
+- Run: `<command>`
+- Test: `<command>`
+- Lint or format: `<command>`
 
 ## Always-On Work Rules
 
 - Keep technical identifiers, file paths, commands, API names, topics, and schema names accurate.
-- Prefer current code, config, logs, and `CONTEXT.md` over old memory.
-- Read `CONTEXT.md` when durable project facts are needed and `ACTIVE_CONTEXT.md` when the task depends on the current workstream. Read `STATUS.md` only for progress, handoff, onboarding, or project-state questions.
+- Prefer current code, config, logs, and authoritative project docs over remembered context.
 - Keep edits small and focused, preserve local style, and avoid unrelated refactors.
 - Do not call anything latest/current unless its date or source has been checked.
 - Do not overwrite uncommitted changes from the user or another agent.
-- When the active work direction changes, overwrite `ACTIVE_CONTEXT.md`; do not keep old directions there.
-- When the main line, key thinking, next step, risk, or blocker changes, update the `STATUS.md` snapshot in place and keep only the seven most recent material changes.
-- Keep `CONTEXT.md`, `ACTIVE_CONTEXT.md`, and `STATUS.md` within the framework's soft and hard memory budgets; at a hard limit, compact before appending.
+
+## Optional Context Routing
+
+- If `CONTEXT.md` exists, read it only for project-wide purpose, architecture, invariants, constraints, or durable decisions not already clear from authoritative docs.
+- If `ACTIVE_CONTEXT.md` exists, read it only when continuing or handing off the current multi-session workstream. Overwrite it when that direction changes; do not retain old directions.
+- If `STATUS.md` exists, read it only for progress, handoff, onboarding, or project-state requests. Update its snapshot only after a material state change.
+- Keep each optional file within the framework's soft and hard budgets; at a hard limit, compact before appending.
+- Do not create a missing optional context file unless the project needs that role.
+
+## Scoped Guidance
+
+- Put subsystem-specific rules in a nested `AGENTS.md` only when they should apply to sessions started inside that subtree.
+- Do not expect Codex to recursively load descendant `AGENTS.md` files from a repository-root session.
 
 ## Optional Workflow Skill Routing
 
@@ -499,7 +541,7 @@ This file contains only repository-level entry rules. Project facts, commands, a
 - Verified references that affect project direction should enter `references/decisions/` as traceable decisions.
 - High-risk references must not be marked accepted without human review.
 - If a task requires both code changes and reference-backed guidance, and the project enables `builder-checker`, load both `builder-checker` and `<reference-skill>`.
-- Project-specific training, deployment, evaluation, release, and other runtime loops do not belong in this framework. Put them in the project's `CONTEXT.md`, runbooks, docs, or source files.
+- Project-specific training, deployment, evaluation, release, and other runtime loops do not belong in this framework. Put them in authoritative runbooks, docs, scripts, or source files, then route to them when needed.
 ```
 
 ## .agents/skills/builder-checker/AGENTS.md (Optional Example)
@@ -507,7 +549,7 @@ This file contains only repository-level entry rules. Project facts, commands, a
 ```md
 # Builder Checker Governance
 
-This skill owns the general implementation and review workflow. It does not store project facts and does not organize references. Project facts live in `CONTEXT.md`; reference-backed judgment is provided by `<reference-skill>`.
+This skill owns the general implementation and review workflow. It does not store project facts and does not organize references. Durable facts come from authoritative project docs and, when present, `CONTEXT.md`; reference-backed judgment is provided by `<reference-skill>`.
 
 ## Load Order
 
@@ -515,7 +557,7 @@ This skill owns the general implementation and review workflow. It does not stor
 2. Read this file.
 3. Read `.agents/skills/builder-checker/SKILL.md`.
 4. When Checker needs detailed criteria, read `references/checker-rubric.md`.
-5. If the task needs reference-backed judgment, also read `.agents/skills/<reference-skill>/AGENTS.md`; if it involves project facts, also read `CONTEXT.md`.
+5. If the task needs reference-backed judgment, also read `.agents/skills/<reference-skill>/AGENTS.md`; if `CONTEXT.md` exists and the task needs durable project facts not clear elsewhere, read it selectively.
 
 ## Governance
 
@@ -634,7 +676,7 @@ description: General Builder / Checker code workflow. Use for non-trivial code c
 ```md
 # <Reference Skill> Governance
 
-This skill owns project reference collection, filtering, organization, indexing, and usage rules. It does not define the project's training, deployment, evaluation, or release loops. Project facts live in `CONTEXT.md`; project-specific processes live in runbooks, docs, or source files.
+This skill owns project reference collection, filtering, organization, indexing, and usage rules. It does not define the project's training, deployment, evaluation, or release loops. Project facts come from authoritative docs and optional context files; project-specific processes live in runbooks, docs, scripts, or source files.
 
 ## Load Order
 
@@ -642,9 +684,9 @@ This skill owns project reference collection, filtering, organization, indexing,
 2. Read this file.
 3. Read `.agents/skills/<reference-skill>/SKILL.md`.
 4. Before new reference collection, project direction judgment, or reference system initialization, run Repository Orientation.
-5. When project background is needed, read `CONTEXT.md`.
-6. When the current active direction is needed, read `ACTIVE_CONTEXT.md`.
-7. When the user asks about progress, handoff, onboarding, or stage status, read `STATUS.md`.
+5. If `CONTEXT.md` exists, read it only when durable project background is needed and not already clear from authoritative docs.
+6. If `ACTIVE_CONTEXT.md` exists, read it only when the current multi-session workstream matters.
+7. If `STATUS.md` exists, read it only when the user asks about progress, handoff, onboarding, or stage status.
 8. When unsure which references to search, read `references/reference-routing.md`.
 9. If the task involves code changes and the project enables `builder-checker`, also read `.agents/skills/builder-checker/AGENTS.md`.
 10. Read only the references, code, config, logs, or docs needed for the current task.
@@ -666,24 +708,24 @@ Confirmation rules:
 - `empty` or `unclear`: first ask the user what to build, who the target user is, what success means, and what constraints matter. Summarize the project understanding and wait for confirmation or correction.
 - `existing`: summarize the current purpose, stack, key constraints, known direction, and unknowns. Ask whether the understanding is correct and whether direction or constraints should change.
 - Before user confirmation, do not start external reference search, write stable conclusions, or write decisions.
-- After user confirmation, write or update the confirmed project understanding in `CONTEXT.md`; write or update this round's direction in `ACTIVE_CONTEXT.md`; if the main line changes, update `STATUS.md`.
+- After user confirmation, update the project's existing source of truth. Create or update `CONTEXT.md`, `ACTIVE_CONTEXT.md`, or `STATUS.md` only when the framework's selection criteria justify that file.
 
 ## Governance
 
-- Root `AGENTS.md` contains only entry rules and default behavior.
+- Root `AGENTS.md` contains natively discovered commands, repository rules, verification boundaries, and selective routing.
 - `SKILL.md` contains only reference collection, filtering, organization, reuse, and citation rules.
-- `CONTEXT.md` stores durable project facts, commands, paths, architecture, constraints, and invariants; replace stale facts in place and keep no chronology.
-- `ACTIVE_CONTEXT.md` stores the current active direction, goal, scope, and next step; it keeps only current state, not history.
-- `STATUS.md` stores the bounded human-readable project snapshot: one-line status, up to seven recent material changes, current thinking, next step, and risk.
+- When present, `CONTEXT.md` stores durable project facts, paths, architecture, constraints, invariants, and authoritative links; replace stale facts in place and keep no chronology.
+- When present, `ACTIVE_CONTEXT.md` stores the current active direction, goal, scope, and next step; it keeps only current state, not history.
+- When present, `STATUS.md` stores the bounded human-readable project snapshot: one-line status, up to seven recent material changes, current thinking, next step, and risk.
 - `references/` stores project-specific long-form references, including papers, open-source repos, design notes, protocols, APIs, and schemas.
 - `references/coverage-gaps.md` stores missing evidence and questions that need more verification.
 - `references/rubrics/` stores scoring standards and calibration examples for the three verifier roles.
 - `references/decisions/` stores project decision records backed by references.
 - `evals/` stores regression test cases and scoring criteria for this reference skill.
-- Newly discovered durable project facts go into `CONTEXT.md`.
-- When the current active direction changes, overwrite `ACTIVE_CONTEXT.md`.
-- When the project main line, key thinking, next step, or risks change, update the `STATUS.md` snapshot in place and prune changes beyond the rolling window.
-- Apply the framework memory budgets to all three files; at a hard limit, compact before appending.
+- Write newly discovered durable project facts to the existing authoritative source; use `CONTEXT.md` only when it is the selected source for that role.
+- When `ACTIVE_CONTEXT.md` exists and the current direction changes, overwrite it.
+- When `STATUS.md` exists and the project main line, key thinking, next step, or risks change materially, update it in place and prune changes beyond the rolling window.
+- Apply the framework optional context budgets only to files that exist; at a hard limit, compact before appending.
 - Update this skill only when reference collection, filtering, organization, or reference routing rules change.
 - Project-specific runtime loops do not belong in this skill; put them in runbooks, docs, test scripts, or source files as needed.
 - Reference collection must be based on confirmed project understanding. Before confirmation, only repository reading and clarification dialogue are allowed.
@@ -722,7 +764,7 @@ description: This project's reference skill. Use it to collect, filter, organize
 2. Human Understanding Gate:
    - `empty` or `unclear`: clarify what the project should be, target users, success criteria, constraints, and unknowns. Summarize the project understanding and wait for confirmation.
    - `existing`: summarize current purpose, stack, key constraints, known direction, and unknowns. Ask whether the understanding is correct and whether direction or constraints should change.
-3. Confirmation pass: after user confirmation, update `CONTEXT.md`, `ACTIVE_CONTEXT.md`, and if needed `STATUS.md`. Before confirmation, do not start reference search.
+3. Confirmation pass: after user confirmation, update the existing project source of truth. Create or update optional context files only when their selection criteria are met. Before confirmation, do not start reference search.
 4. Scope pass: define the specific question, design direction, or decision that needs reference support; read `references/reference-routing.md` and `references/coverage-gaps.md` when needed.
 5. Discovery pass: assign multiple subagents to search papers, open-source repositories, protocols, APIs, schemas, and negative evidence from different sources or angles.
 6. Candidate pass: write candidate references, key claims, source links, dates, and initial applicability to `references/review-queue/`.
@@ -769,9 +811,9 @@ description: This project's reference skill. Use it to collect, filter, organize
 
 ## Reference Use
 
-- Project facts and invariants come from `CONTEXT.md`.
-- Current active direction and this round's goal come from `ACTIVE_CONTEXT.md`.
-- The current project snapshot, recent material changes, next step, and risks come from `STATUS.md`.
+- Project facts and invariants come from authoritative project docs and, when present, `CONTEXT.md`.
+- The current active direction comes from the current task or plan and, when present, `ACTIVE_CONTEXT.md`.
+- Project status comes from the project's status source and, when present, `STATUS.md`.
 - Reference routing comes from `references/reference-routing.md`.
 - Missing evidence and investigation directions come from `references/coverage-gaps.md`.
 - Verifier scoring standards come from `references/rubrics/*.md`.

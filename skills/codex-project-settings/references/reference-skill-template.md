@@ -12,7 +12,7 @@ Add a repo-local reference skill when the project depends on:
 - repeatable reference validation
 - design decisions that should cite stable evidence
 
-Do not add it for small projects where a simple `CONTEXT.md` note is enough.
+Do not add it for small projects where existing documentation or a short optional `CONTEXT.md` note is enough.
 
 ## Minimal Structure
 

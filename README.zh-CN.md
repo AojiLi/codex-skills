@@ -58,7 +58,7 @@
 
 #### [codex-project-settings](./skills/codex-project-settings/SKILL.md)
 
-适合开始长期 Codex 项目工作，或者修复已有项目设置。它会检查并分类仓库，说明证据和 blind spots，让你确认它对项目的理解，然后创建或安全合并 `AGENTS.md`、`CONTEXT.md`、`ACTIVE_CONTEXT.md`、`STATUS.md`，并且只添加项目真正需要的 repo-local skills。三个项目记忆文件都有明确的目标值和硬上限。
+适合开始长期 Codex 项目工作，或者修复已有项目设置。它会检查并分类仓库，说明证据和 blind spots，让你确认它对项目的理解，然后建立最小够用的设置：Codex 原生发现的 `AGENTS.md`，以及项目真正需要的按需上下文文件和 repo-local skills。可选上下文文件具有明确的读取路由、目标值和硬上限。
 
 ```text
 使用 $codex-project-settings 为这个仓库建立长期 Codex 项目设置。
@@ -84,12 +84,12 @@ npx skills@latest add AojiLi/codex-skills --skill codex-project-settings
 
 ## Codex Project Settings Framework
 
-可复用项目基线位于 [codex_agent_framework.md](./codex_agent_framework.md)。默认的项目记忆模型是：
+可复用项目基线位于 [codex_agent_framework.md](./codex_agent_framework.md)。它采用选择式上下文模型：
 
-- `AGENTS.md`：仓库入口规则和路由。
-- `CONTEXT.md`：有界的稳定项目事实和约束。
-- `ACTIVE_CONTEXT.md`：只保留一个当前方向，方向变化时整体覆盖。
-- `STATUS.md`：有界的、给人看的项目状态快照和最近重要变化。
+- `AGENTS.md`：Codex 原生发现的仓库命令、规则、验证要求和路由。
+- `CONTEXT.md`：可选、按需读取的稳定项目事实和约束。
+- `ACTIVE_CONTEXT.md`：可选的跨任务当前方向，方向变化时整体覆盖。
+- `STATUS.md`：可选、有界的人工项目状态快照。
 - `.agents/skills/`：可选的项目专用工作流。
 
 ## 目录结构

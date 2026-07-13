@@ -1,4 +1,4 @@
 interface:
   display_name: "Codex Project Settings"
-  short_description: "Set up reusable Codex project files"
-  default_prompt: "Use $codex-project-settings to set up this repository with Codex project settings."
+  short_description: "Set up native Codex project guidance"
+  default_prompt: "Use $codex-project-settings to create the smallest useful Codex setup for this repository."

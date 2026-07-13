@@ -58,7 +58,7 @@ Use $engineering-decision-review to decide whether this repository should split 
 
 #### [codex-project-settings](./skills/codex-project-settings/SKILL.md)
 
-Use it when starting long-term Codex work in a repository or repairing an existing setup. It inspects and classifies the repository, summarizes the evidence and blind spots, asks you to confirm its project understanding, then creates or safely merges `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, and only the repo-local skills the project actually needs. The project-memory files use explicit soft and hard size budgets.
+Use it when starting long-term Codex work in a repository or repairing an existing setup. It inspects and classifies the repository, summarizes the evidence and blind spots, asks you to confirm its project understanding, then creates or safely merges the smallest useful setup: native `AGENTS.md` guidance plus only the on-demand context files and repo-local skills the project actually needs. Optional context files use explicit routing and soft and hard size budgets.
 
 ```text
 Use $codex-project-settings to initialize this repository for long-term Codex work.
@@ -84,12 +84,12 @@ npx skills@latest add AojiLi/codex-skills --skill codex-project-settings
 
 ## Codex Project Settings Framework
 
-The reusable project baseline is documented in [codex_agent_framework.md](./codex_agent_framework.md). Its default project memory model is:
+The reusable project baseline is documented in [codex_agent_framework.md](./codex_agent_framework.md). Its selective context model is:
 
-- `AGENTS.md`: repository entry rules and routing.
-- `CONTEXT.md`: bounded durable project facts and invariants.
-- `ACTIVE_CONTEXT.md`: one current direction, overwritten when the direction changes.
-- `STATUS.md`: a bounded human-facing project snapshot with recent material changes.
+- `AGENTS.md`: natively discovered repository commands, rules, verification, and routing.
+- `CONTEXT.md`: optional on-demand durable project facts and invariants.
+- `ACTIVE_CONTEXT.md`: optional current multi-session direction, overwritten when the direction changes.
+- `STATUS.md`: optional bounded human-facing project snapshot.
 - `.agents/skills/`: optional project-specific workflows.
 
 ## Structure

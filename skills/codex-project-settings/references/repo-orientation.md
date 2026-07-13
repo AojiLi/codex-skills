@@ -25,7 +25,7 @@ Build a coverage map before giving durable advice:
 - source shape: main entry points, module boundaries, domain folders, shared libraries
 - tests and quality: test directories, fixtures, CI checks, coverage or eval setup
 - runtime and deployment: env examples, Docker, CI/CD, infrastructure, migrations, schemas
-- local project memory: existing `AGENTS.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, `.agents/`
+- project guidance and optional context: existing `AGENTS.md`, `AGENTS.override.md`, `CONTEXT.md`, `ACTIVE_CONTEXT.md`, `STATUS.md`, `.agents/`
 
 For small repositories, inspect these directly. For large or multi-domain repositories, use subagent fan-out when available:
 
@@ -69,4 +69,4 @@ Unknowns:
 - For `unclear`, ask the smallest set of questions needed to disambiguate direction.
 - For `existing`, ask the user to confirm or correct the summary before writing durable project facts.
 
-If the user asks for a provisional setup, mark uncertain facts as assumptions in `CONTEXT.md`.
+If the user asks for a provisional setup and `CONTEXT.md` is justified, mark uncertain facts there as assumptions. Otherwise keep them in the setup response or the project's existing planning source rather than creating `CONTEXT.md` solely for provisional notes.
